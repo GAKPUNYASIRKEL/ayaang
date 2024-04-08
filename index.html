@@ -55,12 +55,14 @@
         "1080Index": 0 
     };
 
+    var intervalId; // Deklarasi variabel intervalId di luar fungsi changeImage()
+
     function changeImage() {
         var select = document.getElementById("resolutionSelect");
         var selectedResolution = select.options[select.selectedIndex].value;
         
         if (selectedResolution === "1080") {
-            var intervalId = setInterval(function() {
+            intervalId = setInterval(function() {
                 var imageData = imageUrls[selectedResolution][imageUrls["1080Index"]];
                 document.getElementById("imageDisplay").src = imageData.src;
                 document.getElementById("imageDisplay").style.width = imageData.width;
