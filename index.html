@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mwehehe gabut kack</title>
+<style>
+    body {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        text-align: center;
+    }
+    
+    img {
+        max-width: 80%;
+        width: 200px;
+        height: auto;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <img id="imageDisplay" src="">
+    <h2></h2>
+    <select id="resolutionSelect" onchange="changeImage()">
+        <option value="">Pilih Resolusi</option>
+        <option value="144">144p</option>
+        <option value="240">240p</option>
+        <option value="480">480p</option>
+        <option value="720">720p</option>
+        <option value="1080">1080p</option>
+    </select>
+</div>
+
+<script>
+    var imageUrls = {
+        "144": "144.png",
+        "240": "240.png",
+        "480": "480.png",
+        "720": "720.png",
+        "1080": [
+            { "src": "1080_1.jpg", "width": "400px", "height": "500px" },
+            { "src": "1080_2.jpg", "width": "400px", "height": "500px" },
+            { "src": "1080_3.jpg", "width": "400px", "height": "500px" },
+            { "src": "1080_4.jpg", "width": "400px", "height": "500px" }
+        ],
+        "1080Index": 0 
+    };
+
+    function changeImage() {
+        var select = document.getElementById("resolutionSelect");
+        var selectedResolution = select.options[select.selectedIndex].value;
+        
+        if (selectedResolution === "1080") {
+            var intervalId = setInterval(function() {
+                var imageData = imageUrls[selectedResolution][imageUrls["1080Index"]];
+                document.getElementById("imageDisplay").src = imageData.src;
+                document.getElementById("imageDisplay").style.width = imageData.width;
+                document.getElementById("imageDisplay").style.height = imageData.height;
+                imageUrls["1080Index"] = (imageUrls["1080Index"] + 1) % imageUrls[selectedResolution].length;
+            }, 1000);
+        } else {
+            clearInterval(intervalId); 
+            var imageUrl = imageUrls[selectedResolution];
+            document.getElementById("imageDisplay").src = imageUrl;
+            document.getElementById("imageDisplay").style.width = "";
+            document.getElementById("imageDisplay").style.height = ""; 
+        }
+    }
+</script>
+</body>
+</html>
